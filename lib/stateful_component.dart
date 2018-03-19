@@ -213,11 +213,16 @@ abstract class BatchedStatefulComponent extends StatefulComponent {
           _callbacks[i]();
         }
         _callbacks.removeRange(0, len);
+        onBatchFinished();
         _notifyListeners();
       });
       _posted = true;
     }
   }
+
+  /// Called when the latest state update batch has completed.
+  @protected
+  void onBatchFinished() {}
 }
 
 /// Provides the given stateful component to the given widget tree.
