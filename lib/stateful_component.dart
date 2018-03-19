@@ -1,5 +1,6 @@
 library stateful_component;
 
+import 'dart:async';
 import 'dart:collection' show HashSet;
 import 'dart:ui' show VoidCallback;
 
@@ -192,6 +193,31 @@ abstract class StatefulComponent {
   /// Called when your stateful component loses its last listener.
   @protected
   void onDeactivated() {}
+}
+
+/// A stateful component where state changes using [setState] are delayed until
+/// the next microtask, effectively batching state changes and dispatching them
+/// all at once.
+abstract class BatchedStatefulComponent extends StatefulComponent {
+  final _callbacks = <VoidCallback>[];
+  bool _posted = false;
+
+  @override
+  void setState(VoidCallback callback) {
+    _callbacks.add(callback);
+    if (!_posted) {
+      scheduleMicrotask(() {
+        _posted = false;
+        final len = _callbacks.length;
+        for (int i=0; i<len; i++) {
+          _callbacks[i]();
+        }
+        _callbacks.removeRange(0, len);
+        _notifyListeners();
+      });
+      _posted = true;
+    }
+  }
 }
 
 /// Provides the given stateful component to the given widget tree.
