@@ -159,7 +159,7 @@ abstract class StatefulComponent {
     assert(_debugAssertNotDisposed());
     if (_listeners != null) {
       final List<VoidCallback> localListeners =
-      new List<VoidCallback>.from(_listeners);
+          new List<VoidCallback>.from(_listeners);
       for (VoidCallback listener in localListeners) {
         try {
           if (_listeners.contains(listener)) listener();
@@ -204,8 +204,7 @@ class ComponentProvider<T extends StatefulComponent> extends InheritedWidget {
     Key key,
     Widget child,
     this.component,
-  })
-      : super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(ComponentProvider<T> oldWidget) {
@@ -214,7 +213,7 @@ class ComponentProvider<T extends StatefulComponent> extends InheritedWidget {
 
   T of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(runtimeType)
-    as ComponentProvider<T>)
+            as ComponentProvider<T>)
         ?.component;
   }
 }
@@ -242,8 +241,7 @@ class ComponentBuilder<T extends StatefulComponent, V> extends StatefulWidget {
     @required this.accessor,
     @required this.builder,
     this.accessIfNull: false,
-  })
-      : super(key: key);
+  }) : super(key: key);
 
   @override
   _ComponentBuilderState createState() => new _ComponentBuilderState<T, V>();
@@ -294,7 +292,8 @@ class _ComponentBuilderState<T extends StatefulComponent, V>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    connectComponent(widget.component ?? new ComponentProvider<T>().of(context));
+    connectComponent(
+        widget.component ?? new ComponentProvider<T>().of(context));
   }
 
   @override
