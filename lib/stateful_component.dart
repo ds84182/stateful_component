@@ -329,6 +329,7 @@ class _ComponentBuilderState<T extends StatefulComponent, V>
 
   @override
   void didUpdateWidget(ComponentBuilder oldWidget) {
+    super.didUpdateWidget(oldWidget);
     if (!identical(widget.component, oldWidget.component)) {
       disconnectComponent();
       connectComponent(widget.component);
