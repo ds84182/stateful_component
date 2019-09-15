@@ -169,11 +169,11 @@ abstract class StatefulComponent {
             exception: exception,
             stack: stack,
             library: 'stateful component library',
-            context: 'while dispatching notifications for $runtimeType',
-            informationCollector: (StringBuffer information) {
-              information.writeln('The $runtimeType sending notification was:');
-              information.write('  $this');
-            },
+//            context: 'while dispatching notifications for $runtimeType',
+//            informationCollector: (StringBuffer information) {
+//              information.writeln('The $runtimeType sending notification was:');
+//              information.write('  $this');
+//            },
           ));
         }
       }
